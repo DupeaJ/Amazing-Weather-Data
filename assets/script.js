@@ -6,7 +6,9 @@ const userInputField = document.getElementById("city-search");
 
 function callWeather() {
 const userInput = document.getElementById("city-search").value;
-
+    console.log(userInput)
+    
+    localStorage.setItem("search history", userInput);
     fetch(
         url +
             "q=" +
@@ -56,6 +58,18 @@ const userInput = document.getElementById("city-search").value;
         .catch((error) => {
             console.log(error);
         });
+    displayBtn();
+}
+
+function displayBtn() {
+    const searchHistory = localStorage.getItem("search history");
+    console.log(searchHistory);
+    if (searchHistory) {
+        const search = document.getElementById("search-history-container");
+        const scoreBtn = document.createElement("button");
+        scoreBtn.textContent = searchHistory;
+        search.appendChild(scoreBtn)
+    }
 }
 
 searchButton.addEventListener("click", callWeather);
@@ -65,7 +79,3 @@ userInputField.addEventListener("keydown", function (event) {
         callWeather();
     }
 });
-// call();
-// var showWeather = (response) => {
-//     console.log(response);
-// }

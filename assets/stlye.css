@@ -1,3 +1,16 @@
 div.search-bar{
     width:30%
 }
+
+div#search-history-container{
+    display: flex;
+    flex-direction: column;
+
+}
+div#search-history-container button{
+    height: 50px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    border-radius: 2px;
+    background-color: antiquewhite;
+}
