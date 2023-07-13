@@ -14,3 +14,7 @@ div#search-history-container button{
     border-radius: 2px;
     background-color: antiquewhite;
 }
+div#card-right{
+    display: flex;
+    float: right;
+}

@@ -25,6 +25,7 @@ const userInput = document.getElementById("city-search").value;
             const temp = data.list[0].main.temp;
             const speed = data.list[0].wind.speed;
             const humidity = data.list[0].main.humidity;
+            const date = data.list[0].dt_txt;
             
             console.log(data);
             console.log(name);
@@ -32,7 +33,7 @@ const userInput = document.getElementById("city-search").value;
             
             
             document.getElementById("city-name").textContent =
-            name;
+            name + " ("+ date + ")";
             document.getElementById("temperature").textContent =
             "Temperature: " + temp + "°";
             document.getElementById("wind-speed").textContent =
