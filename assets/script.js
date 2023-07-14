@@ -24,19 +24,24 @@ function callWeather() {
             console.log(data);
             // console.log(dt);
             for (let i = 7; i < data.list.length; i += 7) {
-                // const temp = data.list[i].main.temp;
-                // const speed = data.list[i].wind.speed;
-                // const humidity = data.list[i].main.humidity;
+                 const temp = data.list[i].main.temp;
+                 const speed = data.list[i].wind.speed;
+                 const humidity = data.list[i].main.humidity;
                 const dt = data.list[i].dt;
-
-
                 const formattedDate = dayjs.unix(dt).format("M/D/YY");
                 const elementId = "#forcast-day-" + Math.ceil((i + 0) / 7);
+                    $(elementId).text(formattedDate)
+            
+            
+                const tempElementId = "#temp-day-" + Math.ceil((i + 0) / 7);
+                    $(tempElementId).text(temp)
+                    
+                const speedElementId = "#wind-day-" + Math.ceil((i + 0) / 7);
+                $(speedElementId).text(speed)
+                
+                const humidityElementId = "#humidity-day-" + Math.ceil((i + 0) / 7);
+                $(humidityElementId).text(humidity)
 
-                $(elementId).text(formattedDate);
-              
-            
-            
                 const icon = data.list[i].weather[0].icon;
                 const iconElementId = "#icon-day-" + Math.ceil((i + 0) / 7);
 
@@ -49,6 +54,7 @@ function callWeather() {
                     $(iconElementId).attr("src", weatherIconURL);
                 });
             };
+            //Current weather fetch
             fetch(
                 "https://api.openweathermap.org/data/2.5/weather?q=" +
                     userInput +
@@ -87,8 +93,7 @@ function callWeather() {
                         });
                 });
 
-            console.log(speed);
-            console.log(humidity);
+            
         })
 
         .catch((error) => {
