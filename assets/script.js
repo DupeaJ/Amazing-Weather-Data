@@ -21,25 +21,24 @@ const userInput = document.getElementById("city-search").value;
         })
 
         .then(function (data) {
+            
             const name = data.city.name;
             const temp = data.list[0].main.temp;
             const speed = data.list[0].wind.speed;
             const humidity = data.list[0].main.humidity;
             const date = data.list[0].dt_txt;
-            
+            const dt = data.list[2].dt
             console.log(data);
             console.log(name);
             console.log(temp);
             
             
-            document.getElementById("city-name").textContent =
-            name + " ("+ date + ")";
-            document.getElementById("temperature").textContent =
-            "Temperature: " + temp + "°";
-            document.getElementById("wind-speed").textContent =
-            "Wind Speed: " + speed + " mph";
-            document.getElementById("humidity").textContent =
-            "Humidity: " + humidity + " %";
+            $("#city-name").text(name + " (" + date + ")");
+            
+            $("#temperature").text("Temperature: " + temp + "°");
+            $("#wind-speed").text("Wind Speed: " + speed + " mph");
+            $("#humidity").text("Humidity: " + humidity + " %");
+            $("#forcast-day-1").text(dayjs.unix(dt).format("M/D/YY"));
             
             const icon = data.list[0].weather[0].icon;
             fetch("https://openweathermap.org/img/wn/" + icon + "@2x.png")
