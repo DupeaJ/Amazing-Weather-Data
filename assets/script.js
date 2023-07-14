@@ -11,62 +11,81 @@ function callWeather() {
     localStorage.setItem("search history", userInput);
     fetch(
         url +
-            "q=" +
-            userInput +
-            "&units=imperial&lang=en&cnt=5&units=standard" +
-            APIKey
+        "q=" +
+        userInput +
+        "&units=imperial&lang=en&units=standard" +
+        APIKey
     )
         .then(function (response) {
             return response.json();
         })
 
         .then(function (data) {
-            const name = data.city.name;
-            const temp = data.list[0].main.temp;
-            const speed = data.list[0].wind.speed;
-            const humidity = data.list[0].main.humidity;
-            const date = data.list[0].dt_txt;
-            const dt = data.list[4].dt;
             console.log(data);
-            console.log(dt);
+            // console.log(dt);
+            for (let i = 7; i < data.list.length; i += 7) {
+                // const temp = data.list[i].main.temp;
+                // const speed = data.list[i].wind.speed;
+                // const humidity = data.list[i].main.humidity;
+                const dt = data.list[i].dt;
 
+
+                const formattedDate = dayjs.unix(dt).format("M/D/YY");
+                const elementId = "#forcast-day-" + Math.ceil((i + 0) / 7);
+
+                $(elementId).text(formattedDate);
+              
             
-            $("#forcast-day-1").text(dayjs.unix(dt).format("M/D/YY"));
+            
+                const icon = data.list[i].weather[0].icon;
+                const iconElementId = "#icon-day-" + Math.ceil((i + 0) / 7);
 
-            const icon = data.list[0].weather[0].icon;
-            fetch("https://openweathermap.org/img/wn/" + icon + "@2x.png")
+                fetch("https://openweathermap.org/img/wn/" + icon + "@2x.png")
                 .then(function (response) {
                     return response.blob();
                 })
                 .then(function (blob) {
                     const weatherIconURL = URL.createObjectURL(blob);
-                    document.getElementById("weather-icon").src =
-                        weatherIconURL;
-                })
-                fetch(
-                    "https://api.openweathermap.org/data/2.5/weather?q=" +
-                        userInput +
+                    $(iconElementId).attr("src", weatherIconURL);
+                });
+            };
+            fetch(
+                "https://api.openweathermap.org/data/2.5/weather?q=" +
+                    userInput +
                     "&units=imperial&lang=en&cnt=5&units=standard" +
                     APIKey
-                )
-                    .then(function (response) {
-                        return response.json();
-                    })
-                    .then(function (data) {
-                        console.log(data);
-                        const name = data.name;
-                        const temp = data.main.temp;
-                        const speed = data.wind.speed;
-                        const humidity = data.main.humidity;
-                        const dt = data.dt;
+            )
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    console.log(data);
+                    const name = data.name;
+                    const temp = data.main.temp;
+                    const speed = data.wind.speed;
+                    const humidity = data.main.humidity;
+                    const dt = data.dt;
+                    const icon = data.weather[0].icon
 
-                        $("#city-name").text(name+" (" +dayjs.unix(dt).format("M/D/YY")+")");;
-                        $("#temperature").text("Temperature: " + temp + "°");
-                        $("#wind-speed").text("Wind Speed: " + speed + " mph");
-                        $("#humidity").text("Humidity: " + humidity + " %");
-
-
-            })
+                    $("#city-name").text(
+                        name + " (" + dayjs.unix(dt).format("M/D/YY") + ")"
+                    );
+                    $("#temperature").text("Temperature: " + temp + "°");
+                    $("#wind-speed").text("Wind Speed: " + speed + " mph");
+                    $("#humidity").text("Humidity: " + humidity + " %");
+                    // const icon = weather[0].icon;
+                    const weatherI = "#weather-icon"
+                    fetch(
+                        "https://openweathermap.org/img/wn/" + icon + "@2x.png"
+                    )
+                        .then(function (response) {
+                            return response.blob();
+                        })
+                        .then(function (blob) {
+                            const weatherIconURL = URL.createObjectURL(blob);
+                            $(weatherI).attr("src", weatherIconURL);
+                        });
+                });
 
             console.log(speed);
             console.log(humidity);
