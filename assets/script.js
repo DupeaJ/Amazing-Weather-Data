@@ -5,6 +5,7 @@ const searchButton = document.querySelector(".search-button");
 const userInputField = document.getElementById("city-search");
 
 function callWeather() {
+    $('#waitingMessage').hide();
     const userInput = document.getElementById("city-search").value;
     //console.log(userInput);
 
@@ -134,6 +135,7 @@ function displayBtn() {
 }
 
 function history(searchItem) {
+    $("#waitingMessage").hide();
 fetch(
         url +
         "q=" +
@@ -226,6 +228,7 @@ fetch(
         });
 }
 displayBtn();
+
 
 
 function isItemDisplayed(item, container) {

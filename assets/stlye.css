@@ -27,6 +27,7 @@ div#card-right{
     float: right;
     height: fit-content;
     background-color: rgb(184, 138, 138);
+    height: 35vh;
 
 }
 div#display-cards{
@@ -44,7 +45,7 @@ div#card-holder{
     flex-direction: row;
     display: flex;
     height: fit-content;
-    margin-right: 15px;
+    justify-content: space-between;
 }
 div.forcast-row{
     margin-right: 10px;
@@ -56,4 +57,26 @@ div#collum{
 }
 input#city-search{
      background-color: rgb(184, 138, 138);
+}
+#waitingMessageContainer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 25%;
+  overflow: hidden;
+}
+
+#waitingMessage {
+  white-space: nowrap;
+  animation: slide 4s infinite;
+
+}
+
+@keyframes slide {
+  0% {
+    transform: translateX(-100);
+  }
+  100% {
+    transform: translateX(+120%);
+  }
 }
